@@ -1,19 +1,41 @@
-public class Dataset {
-    public DataPoint[] getDataPoints() {
-        // retorna o vetor com os dados carregados
+import java.io.IOException;
+import java.nio.file.Files;
+import java.nio.file.Path;
+import java.util.ArrayList;
+import java.util.List;
 
+
+
+
+public class Dataset {
+    private List<String[]> dataPoints;
+    private int length;
+
+    public List<String[]> getDataPoints() {
+        return dataPoints;
     }
 
     public int getLength() {
-        // retorna a quantidade de pontos carregados
+        return length;
     }
 
-    public Dataset() {
-        // Implementar construtor
+    public Dataset(String string) {
+        dataPoints = new ArrayList<>();
+        length = 0;
     }
 
     public void loadDataFromCSV(String filename) {
-        // Implementação para ler dados do arquivo CSV e carregar na lista de pontos de
-        // dados
+        try {
+            List<String> lines = Files.readAllLines(Path.of(filename));
+            List<String[]> dataList = new ArrayList<>();
+            for (String line : lines) {
+                String[] values = line.split(",");
+                dataList.add(values);
+            }
+            dataPoints = dataList;
+            length = dataPoints.size();
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
     }
 }
