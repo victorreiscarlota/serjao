@@ -29,7 +29,7 @@ public class Dataset {
             List<String> lines = Files.readAllLines(Path.of(filename));
             List<String[]> dataList = new ArrayList<>();
             for (String line : lines) {
-                String[] values = line.split(",");
+                String[] values = line.split(";");
                 dataList.add(values);
             }
             dataPoints = dataList;
